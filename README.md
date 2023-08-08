@@ -11,7 +11,7 @@
 • Use NoSQL database SO THAT website can handle large amounts of unstructured data
 Acceptance Criteria
 GIVEN a social network API
-WHEN I enter the command to invoke the application
+WHEN I enter the command (prob npm run start, or node server) to invoke the application
 THEN my server is started and the Mongoose models are synced to the MongoDB database
 WHEN I open API GET routes in Insomnia for users and thoughts
 THEN the data for each of these routes is displayed in a formatted JSON
