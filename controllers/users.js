@@ -17,7 +17,7 @@ const userController = {
         res
           .status(404)
           .json({
-            message: "Something went wrong: User by that ID not found.",
+            message: "Something went wrong: No User by that ID not found.",
           });
       } else {
         res.json(users);
@@ -58,14 +58,14 @@ const userController = {
   async deleteUser(req, res) {
     try {
       const user = await User.findOneAndRemove({ _id: req.params.userId });
-      if (!userId) {
+      if (!user) {
         return res
           .status(404)
           .json({
             message: "Something went wrong: User by that ID not found.",
           });
       }
-      res.json({ message: `Deletion of user ${user} was successful.` });
+      res.json({ message: `Deletion of user '${user.username}' was successful.` });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -87,7 +87,7 @@ const userController = {
           });
       }
 
-      res.json({ message: `A new friend has been added for user ${user}!` });
+      res.json({ message: `A new friend has been added for user '${user.friend}'!` });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -118,13 +118,13 @@ const userController = {
           });
       } else {
         res.json({
-          message: `Deletion of friend ${friendId} for user ${userId} was successful.`,
+          message: `Deletion of friend '${user.friendId}' for user '${user.userId}' was successful.`
         });
       }
     } catch (err) {
       res.status(500).json(err);
     }
-  },
+  }
 };
 
 module.exports = userController;
