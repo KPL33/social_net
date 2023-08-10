@@ -3,7 +3,7 @@ const { User } = require("../models");
 const userController = {
   async getAllUsers(req, res) {
     try {
-      const users = await User.find({});
+      const users = await User.find({}).populate('thoughts');
       res.json(users);
     } catch (err) {
       res.status(500).json(err);
@@ -12,16 +12,11 @@ const userController = {
 
   async getUsersById(req, res) {
     try {
-      const users = await User.findOne({ _id: req.params.userId });
-      if (users.length === 0) {
-        res
-          .status(404)
-          .json({
-            message: "Something went wrong: No User by that ID not found.",
-          });
-      } else {
-        res.json(users);
-      }
+      const users = await User.findOne({ _id: req.params.userId }).populate('thoughts');
+      if (!user) {
+        return res.status(404).json({ message: "No User by that ID was found." });
+      } 
+      res.json(users);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -46,7 +41,7 @@ const userController = {
         return res
           .status(404)
           .json({
-            message: "Something went wrong: User by that ID not found.",
+            message: "User by that ID not found.",
           });
       }
       res.json(user);
@@ -62,7 +57,7 @@ const userController = {
         return res
           .status(404)
           .json({
-            message: "Something went wrong: User by that ID not found.",
+            message: "User by that ID not found.",
           });
       }
       res.json({ message: `Deletion of user '${user.username}' was successful.` });
@@ -83,7 +78,7 @@ const userController = {
         return res
           .status(404)
           .json({
-            message: "Something went wrong: User by that ID not found.",
+            message: "User by that ID not found.",
           });
       }
 
@@ -108,13 +103,13 @@ const userController = {
         return res
           .status(404)
           .json({
-            message: "Something went wrong: User by that ID not found.",
+            message: "User by that ID not found.",
           });
       } else if (user.friends.length === 0) {
         return res
           .status(404)
           .json({
-            message: "Something went wrong: Friend by that ID not found.",
+            message: "Friend by that ID not found.",
           });
       } else {
         res.json({

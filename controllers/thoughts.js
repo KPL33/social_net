@@ -1,4 +1,4 @@
-const { Thought } = require("../models");
+const { Thought, User } = require("../models");
 
 const thoughtController = {
   async getAllThoughts(req, res) {
@@ -27,8 +27,19 @@ const thoughtController = {
 
   async createThought(req, res) {
     try {
-      const thoughts = await Thought.create(req.body);
-      res.status(200).json(thoughts);
+      const thought = await Thought.create(req.body);
+      const user = await User.findOneAndUpdate(
+        { username: req.body.username },
+        { $addToSet: { thoughts: thought._id } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({
+          message: "Something went wrong: 'Username' not found."
+        });
+      }
+      res.status(200).json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
