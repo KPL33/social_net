@@ -68,12 +68,22 @@ const userController = {
 
   async addFriend(req, res) {
     try {
+      const { friendId } = req.params;
+      console.log("Request Body:", req.body); // Verify the friendId in the payload
+      console.log("User ID:", req.params.userId);
+
+      const userBeforeUpdate = await User.findOne({ _id: req.params.userId });
+      console.log("User Before Update:", userBeforeUpdate);
+
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $addToSet: { assignments: req.body } },
+        {
+          $addToSet: { friends: friendId },
+          $inc: { friendCount: 1 }
+        },
         { runValidators: true, new: true }
       );
-
+      console.log("User After Update:", user);
       if (!user) {
         return res
           .status(404)
@@ -82,7 +92,7 @@ const userController = {
           });
       }
 
-      res.json({ message: `A new friend has been added for user '${user.friend}'!` });
+      res.json({ message: `A new friend has been added for user '${user.username}'!` });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -95,7 +105,7 @@ const userController = {
 
       const user = await User.findOneAndUpdate(
         { _id: userId },
-        { $pull: { friend: { friendId: friendId } } },
+        { $pull: { friends: { friendId: friendId } } },
         { runValidators: true, new: true }
       );
 
@@ -113,7 +123,7 @@ const userController = {
           });
       } else {
         res.json({
-          message: `Deletion of friend '${user.friendId}' for user '${user.userId}' was successful.`
+          message: `Deletion of friend '${friendId}' for user '${userId}' was successful.`
         });
       }
     } catch (err) {
