@@ -105,7 +105,7 @@ const userController = {
 
       const user = await User.findOneAndUpdate(
         { _id: userId },
-        { $pull: { friends: { friendId: friendId } } },
+        { $pull: { friends: friendId }, $inc: { friendCount: -1 } },
         { runValidators: true, new: true }
       );
 
@@ -115,7 +115,7 @@ const userController = {
           .json({
             message: "User by that ID not found.",
           });
-      } else if (user.friends.length === 0) {
+      } else if (user.friends.includes(friendId)) {
         return res
           .status(404)
           .json({

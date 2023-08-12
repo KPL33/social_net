@@ -10,8 +10,8 @@
 
 √ Use NoSQL database
 test POST, PUT DELETE for users and thoughts in my database
-test API POST and DELETE routes in Insomnia
-THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+√ test API POST and DELETE reactions to thoughts/
+add and remove friends to a user’s friend list
 Mock Up
 • set GET routes to return all users and all thoughts being tested in Insomnia; show in vid.
 • GET routes to return a single user and a single thought being tested in Insomnia; Demo.
