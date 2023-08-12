@@ -15,7 +15,7 @@ const thoughtController = {
       const thoughts = await Thought.findOne({ _id: req.params.thoughtId });
       if (thoughts.length === 0) {
         res.status(404).json({
-          message: "Something went wrong: No 'Thought' by that ID was found.",
+          message: "No 'Thought' by that ID was found.",
         });
       } else {
         res.json(thoughts);
@@ -36,7 +36,7 @@ const thoughtController = {
 
       if (!user) {
         return res.status(404).json({
-          message: "Something went wrong: 'Username' not found."
+          message: "User not found."
         });
       }
       res.status(200).json(thought);
@@ -68,7 +68,7 @@ const thoughtController = {
 
       if (!updatedThought) {
         return res.status(404).json({
-          message: "Something went wrong: No 'Thought' by that ID was found.",
+          message: "No 'Thought' by that ID was found.",
         });
       }
       res.json(updatedThought);
@@ -87,7 +87,7 @@ const thoughtController = {
 
       if (!thoughts) {
         return res.status(404).json({
-          message: "Something went wrong: No 'Thought' by that ID was found.",
+          message: "No 'Thought' by that ID was found.",
         });
       }
 
@@ -110,11 +110,11 @@ const thoughtController = {
 
       if (!thought) {
         return res.status(404).json({
-          message: "Something went wrong: No 'Thought' was found.",
+          message: "No 'Thought' was found.",
         });
       } else if (thought.reactions.length === 0) {
         return res.status(404).json({
-          message: "Something went wrong: No 'Reaction' by that ID was found.",
+          message: "No 'Reaction' by that ID was found.",
         });
       } else {
         res.json({
