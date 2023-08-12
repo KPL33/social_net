@@ -1,22 +1,15 @@
 18 NoSQL: Social Network API
 
-•  build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
-• use Express.js for routing
-• MongoDB database
-•  Mongoose ODM. In addition to using the Express.js and Mongoose packages, you may also
-• native JavaScript Date object to format timestamps.
-• create your own seed data using Insomnia after you’ve created your API.
+√ build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
+√ use Express.js for routing
+√ MongoDB database
+√  use JavaScript Date object to format timestamps.
+√ create your own seed data.
+
 • walkthrough vid, link to the video and add it to the README of your project.
 
-• Use NoSQL database SO THAT website can handle large amounts of unstructured data
-Acceptance Criteria
-GIVEN a social network API
-WHEN I enter the command (prob npm run start, or node server) to invoke the application
-THEN my server is started and the Mongoose models are synced to the MongoDB database
-WHEN I open API GET routes in Insomnia for users and thoughts
-THEN the data for each of these routes is displayed in a formatted JSON
-WHEN I test API POST, PUT, and DELETE routes in Insomnia
-THEN I am able to successfully create, update, and delete users and thoughts in my database
+√ Use NoSQL database
+test POST, PUT DELETE for users and thoughts in my database
 WHEN I test API POST and DELETE routes in Insomnia
 THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
 Mock Up

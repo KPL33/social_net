@@ -58,20 +58,20 @@ const thoughtController = {
 
   async updateThoughtbyId(req, res) {
     try {
-      const thoughts = await Thought.findOneAndUpdate(
-        req.params.thoughtId,
+      const updatedThought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
         req.body,
         {
           new: true,
         }
       );
 
-      if (!thoughts) {
+      if (!updatedThought) {
         return res.status(404).json({
           message: "Something went wrong: No 'Thought' by that ID was found.",
         });
       }
-      res.json(thoughts);
+      res.json(updatedThought);
     } catch (err) {
       res.status(500).json(err);
     }
