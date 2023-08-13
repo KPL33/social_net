@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const { Thought } = require("../models");
 
 const userController = {
   async getAllUsers(req, res) {
@@ -52,15 +53,24 @@ const userController = {
 
   async deleteUser(req, res) {
     try {
-      const user = await User.findOneAndRemove({ _id: req.params.userId });
+      const userId = req.params.userId;
+      const user = await User.findOne({ _id: userId }).populate('thoughts');
+  
       if (!user) {
-        return res
-          .status(404)
-          .json({
-            message: "User by that ID not found.",
-          });
+        return res.status(404).json({
+          message: "User by that ID not found.",
+        });
       }
-      res.json({ message: `Deletion of user '${user.username}' was successful.` });
+  
+      for (const thought of user.thoughts) {
+        await Thought.findOneAndRemove({ _id: thought._id });
+      }
+  
+      await User.findOneAndRemove({ _id: userId });
+  
+      res.json({
+        message: `Deletion of user '${user.username}' and associated thoughts was successful.`,
+      });
     } catch (err) {
       res.status(500).json(err);
     }

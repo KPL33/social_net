@@ -5,160 +5,26 @@
 √ MongoDB database
 √  use JavaScript Date object to format timestamps.
 √ create your own seed data.
-
-• walkthrough vid, link to the video and add it to the README of your project.
-
 √ Use NoSQL database
-test POST, PUT DELETE for users and thoughts in my database
+√ test POST, PUT DELETE for users and thoughts in my database
 √ test API POST and DELETE reactions to thoughts/
-add and remove friends to a user’s friend list
-Mock Up
-• set GET routes to return all users and all thoughts being tested in Insomnia; show in vid.
-• GET routes to return a single user and a single thought being tested in Insomnia; Demo.
-• POST, PUT, and DELETE routes for users being tested in Insomnia; Demo.
-• show the POST, PUT, and DELETE routes for thoughts being tested in Insomnia.
-• Demo that shows the POST and DELETE routes for a user’s friend list being tested in Insomnia.
-• show the POST and DELETE routes for reactions to thoughts being tested in Insomnia.
+√ add and remove friends to a user’s friend list
+√ set GET routes to return all users and all thoughts being tested in 
 
-Getting Started
+Insomnia; show in vid.
+• walkthrough vid, link to the video and add it to the README of your project.
+• GET routes to return...
+- All USERS.
+- single user
+- single thought
+• POST, PUT, and DELETE routes for...
+- thoughts
+- users (show that their thought were deleted, too)
 
+• POST and DELETE for...
+• Friends (mouse-over count/show results on right)
+• reactions (mouse-over count/show results on right)
 
-Use the following guidelines to set up your models and API routes:
-
-Models
-User:
-
-username
-
-String
-Unique
-Required
-Trimmed
-email
-
-String
-Required
-Unique
-Must match a valid email address (look into Mongoose's matching validation)
-thoughts
-
-Array of _id values referencing the Thought model
-friends
-
-Array of _id values referencing the User model (self-reference)
-Schema Settings:
-
-Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
-
-Thought:
-
-thoughtText
-
-String
-Required
-Must be between 1 and 280 characters
-createdAt
-
-Date
-Set default value to the current timestamp
-Use a getter method to format the timestamp on query
-username (The user that created this thought)
-
-String
-Required
-reactions (These are like replies)
-
-Array of nested documents created with the reactionSchema
-Schema Settings:
-
-Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
-
-Reaction (SCHEMA ONLY)
-
-reactionId
-
-Use Mongoose's ObjectId data type
-Default value is set to a new ObjectId
-reactionBody
-
-String
-Required
-280 character maximum
-username
-
-String
-Required
-createdAt
-
-Date
-Set default value to the current timestamp
-Use a getter method to format the timestamp on query
-Schema Settings:
-
-This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
-
-API Routes
-/api/users
-
-GET all users
-
-GET a single user by its _id and populated thought and friend data
-
-POST a new user:
-
-// example data
-{
-  "username": "lernantino",
-  "email": "lernantino@gmail.com"
-}
-PUT to update a user by its _id
-
-DELETE to remove user by its _id
-
-BONUS: Remove a user's associated thoughts when deleted.
-
-/api/users/:userId/friends/:friendId
-
-POST to add a new friend to a user's friend list
-
-DELETE to remove a friend from a user's friend list
-
-/api/thoughts
-
-GET to get all thoughts
-
-GET to get a single thought by its _id
-
-POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
-
-// example data
-{
-  "thoughtText": "Here's a cool thought...",
-  "username": "lernantino",
-  "userId": "5edff358a0fcb779aa7b118b"
-}
-PUT to update a thought by its _id
-
-DELETE to remove a thought by its _id
-
-/api/thoughts/:thoughtId/reactions
-
-POST to create a reaction stored in a single thought's reactions array field
-
-DELETE to pull and remove a reaction by the reaction's reactionId value
-
-Grading Requirements
-Note: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
-
-A repository that has no code
-
-A repository that includes a unique name but nothing else
-
-A repository that includes only a README file but nothing else
-
-A repository that only includes starter code
-
-This Challenge is graded based on the following criteria:
 
 Deliverables: 10%
 Your GitHub repository containing your application code.

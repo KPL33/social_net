@@ -10,10 +10,6 @@ const {
   deleteFriend
 } = require('../../controllers/users');
 
-const {
-  createThought
-} = require('../../controllers/thoughts')
-
 router.route('/').get(getAllUsers).post(createUser);
 
 router.route('/:userId').get(getUsersById).put(updateUserById).delete(deleteUser);
