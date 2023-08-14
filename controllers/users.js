@@ -1,5 +1,5 @@
-const { User } = require("../models");
-const { Thought } = require("../models");
+//Here, we require "models" "Thought" & "User", detailed in those files, within the "models" folder, found in our app's root folder.
+const { Thought, User } = require("../models");
 
 const userController = {
   async getAllUsers(req, res) {
@@ -79,11 +79,8 @@ const userController = {
   async addFriend(req, res) {
     try {
       const { friendId } = req.params;
-      console.log("Request Body:", req.body); // Verify the friendId in the payload
-      console.log("User ID:", req.params.userId);
 
       const userBeforeUpdate = await User.findOne({ _id: req.params.userId });
-      console.log("User Before Update:", userBeforeUpdate);
 
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
@@ -93,7 +90,7 @@ const userController = {
         },
         { runValidators: true, new: true }
       );
-      console.log("User After Update:", user);
+    
       if (!user) {
         return res
           .status(404)
@@ -142,4 +139,5 @@ const userController = {
   }
 };
 
+//Finally, we "export" all functionality above, so that it can utilized by the "routes/api-routes/user-routes file", elsewhere in our app.
 module.exports = userController;

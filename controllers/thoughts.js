@@ -1,4 +1,4 @@
-//Here, we require "models" "Thought" & "User", detaied in those files, within the "models" folder, found in our app's root folder.
+//Here, we require "models" "Thought" & "User", detailed in those files, within the "models" folder, found in our app's root folder.
 const { Thought, User } = require("../models");
 
 //Here, we set-up a method to "getAllThoughts", which "await"s a "json" "res"ponse, which contains the data we detailed in our "Thought".js "model". We include "err"or handling, should anything go awry in that process.
@@ -105,19 +105,15 @@ const thoughtController = {
     }
   },
 
-  //Similar to the "deleteThought" function, here we give ourselves a way to "delte" "Reaction"s.
+  //Similar to the "deleteThought" function, here we give ourselves a way to "delete" "Reaction"s.
   async deleteReaction(req, res) {
     try {
       const thoughtId = req.params.thoughtId;
       const reactionId = req.params.reactionId;
 
-      console.log('Deleting reaction:');
-    console.log('Thought ID:', thoughtId);
-    console.log('Reaction ID:', reactionId);
-
       const thought = await Thought.findOneAndUpdate(
         { _id: thoughtId },
-        { $pull: { reactions: { _id: reactionId } } },
+        { $pull: { reactions: { reactionId: reactionId } } },
         { runValidators: true, new: true }
       );
 
@@ -131,13 +127,14 @@ const thoughtController = {
         });
       } else {
         res.json({
-          message: `Deletion of reaction was successful.`,
+          message: "Deletion of reaction was successful.",
         });
       }
     } catch (err) {
       res.status(500).json(err);
     }
-  },
+  }
 };
 
+//Finally, we "export" all functionality above, so that it can utilized by the "routes/api-routes/thought-routes file", elsewhere in our app.
 module.exports = thoughtController;
