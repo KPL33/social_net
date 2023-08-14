@@ -1,5 +1,7 @@
 //Here, we require "models" "Thought" & "User", detailed in those files, within the "models" folder, found in our app's root folder.
-const { Thought, User } = require("../models");
+const { User } = require("../models");
+
+const { Thought } = require("../models");
 
 //Here, we set delcare a "const" that will allow us to "Control" the various methods involved with "thoughts" in our app.
 const userController = {
@@ -40,9 +42,11 @@ const userController = {
   //Here, we set up a method to "update" an existing "User". "new: true" ensures that the "new" "User"name "return"s, the next time we search for this "User". We also include error-handling, in case the specified "Id" is not found in the datbase.
   async updateUserById(req, res) {
     try {
-      const user = await User.findOneAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
+      const updatedFields =req.body;
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId }, updatedFields,
+        { new: true }
+        );
 
       if (!user) {
         return res
@@ -51,6 +55,22 @@ const userController = {
             message: "User by that ID not found.",
           });
       }
+
+      await Thought.updateMany(
+        { username: user.username },
+        {
+            $set: {
+            "thoughts.$[thought].username": user.username,
+            "thoughts.$[thought].reactions.$[reaction].username": user.username,
+          },
+        },
+        {
+          arrayFilters: [
+            { "thought.username": user.username },
+            { "reaction.username": user.username },            
+          ],
+        }
+      )
       res.json(user);
     } catch (err) {
       res.status(500).json(err);
