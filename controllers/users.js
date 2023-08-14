@@ -129,12 +129,6 @@ const userController = {
           .json({
             message: "User by that ID not found.",
           });
-      } else if (!user.friends.includes(friendId)) {
-        return res
-          .status(404)
-          .json({
-            message: "Friend by that ID not found.",
-          });
       } else {
         res.json({
           message: `Deletion of friend '${friendId}' for user '${userId}' was successful.`

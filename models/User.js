@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-// Schema to create User model
+//Here, we establish a "Schema" defining our "User" "model". We have specific criteria for what constitutes a "User", including "username", "email", "thoughts" and "friends". We also use a "regex", in order to specifically test criteria for an acceptable email address, supplied by the user when they register.
 const userSchema = new Schema(
   {
     username: {
@@ -39,4 +39,5 @@ userSchema.virtual('friendCount').get(function () {
 
 const User = model('User', userSchema);
 
+//We export the "User" "Schema", so that it can be referenced in our "controllers/users.js" file, elsewhere in our app.
 module.exports = User;
