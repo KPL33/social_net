@@ -55,22 +55,7 @@ const userController = {
             message: "User by that ID not found.",
           });
       }
-
-      await Thought.updateMany(
-        { username: user.username },
-        {
-            $set: {
-            "thoughts.$[thought].username": user.username,
-            "thoughts.$[thought].reactions.$[reaction].username": user.username,
-          },
-        },
-        {
-          arrayFilters: [
-            { "thought.username": user.username },
-            { "reaction.username": user.username },            
-          ],
-        }
-      )
+      
       res.json(user);
     } catch (err) {
       res.status(500).json(err);
