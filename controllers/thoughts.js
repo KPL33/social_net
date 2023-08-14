@@ -1,8 +1,10 @@
 //Here, we require "models" "Thought" & "User", detailed in those files, within the "models" folder, found in our app's root folder.
 const { Thought, User } = require("../models");
 
-//Here, we set-up a method to "getAllThoughts", which "await"s a "json" "res"ponse, which contains the data we detailed in our "Thought".js "model". We include "err"or handling, should anything go awry in that process.
+//Here, we set delcare a "const" that will allow us to "Control" the various methods involved with "thoughts" in our app.
 const thoughtController = {
+
+  //Here, we set-up a method to "getAllThoughts", which "await"s a "json" "res"ponse, which contains the data we detailed in our "Thought".js "model". We include "err"or handling, should anything go awry in that process.
   async getAllThoughts(req, res) {
     try {
       const thoughts = await Thought.find({});
@@ -28,7 +30,7 @@ const thoughtController = {
     }
   },
 
-  //Here, we set-up a method to "create" a "Thought" using the "req"uest "body" data recived. It is required to contain a "username" and "addTo" the "Set" of "thoughts" that may already exist for the specified user. It also instructs that the "thought" "Set" should include the "new" "thought". Our "err"or handling includes the "message" shown below, which returns when a specific "username" is not found in the datbase.
+  //Here, we set-up a method to "create" a "Thought" using the "req"uest "body" data received. It is "req"uired to contain a "username" and "addTo" the "Set" of "thoughts" that may already exist for the specified user. It also instructs that the "thought" "Set" should include the "new" "thought". Our "err"or handling includes the "message" shown below, which returns when a specific "username" is not found in the datbase.
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
