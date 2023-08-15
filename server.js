@@ -1,3 +1,4 @@
+//Our main app file. Here, we set up the configuation for running the app, pulling in all other bundled files and designating "PORT 3001" for monitoring the content of our database.
 const express = require("express");
 const routes = require("./routes");
 
