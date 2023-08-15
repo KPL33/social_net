@@ -37,7 +37,7 @@ To interact with the database, open an API client (Insomnia or similar) and ente
 </br>
 
 ## Application Demo Video
-
+https://github.com/KPL33/social_net/blob/main/assets/Kevin_Lewis_Social_Network_backend_demo.mp4
 
 </br>
 
